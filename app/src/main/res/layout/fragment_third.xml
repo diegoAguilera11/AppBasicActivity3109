@@ -11,7 +11,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="47dp"
         android:text="@string/title_third_fragment"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
         android:id="@+id/button_four"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="57dp"
         android:text="@string/previous"
         app:layout_constraintBottom_toTopOf="@+id/button_five"
         app:layout_constraintEnd_toEndOf="@+id/button_five" />
