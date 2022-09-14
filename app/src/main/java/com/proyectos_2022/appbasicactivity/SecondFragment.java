@@ -4,28 +4,28 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.proyectos_2022.appbasicactivity.adapter.OperationAdapter;
 import com.proyectos_2022.appbasicactivity.databinding.FragmentSecondBinding;
 
 public class SecondFragment extends Fragment {
 
     private FragmentSecondBinding binding;
     private EditText txt_number3, txt_number4;
-    private Spinner spinner_operations;
+    Spinner spinner_operations;
     private TextView txt_resultado2;
 
-    /*String[] nameOperations = {"Sumar", "Restar", "Multiplicar", "Dividir"};
-    int[] imageOperations = {R.drawable.suma, R.drawable.resta, R.drawable.multiplicar, R.drawable.dividir};*/
+    String[] operationNames = {"Sumar", "Restar", "Multiplicar", "Dividir"};
+    int[] operationIcons = {R.drawable.suma, R.drawable.resta, R.drawable.multiplicar, R.drawable.dividir};
 
     @Override
     public View onCreateView(
@@ -39,14 +39,8 @@ public class SecondFragment extends Fragment {
         txt_resultado2 = (TextView) binding.txtResultado2;
         spinner_operations = (Spinner) binding.spinnerOperations;
 
-        String[] operation = {
-                "Sumar",
-                "Restar",
-                "Multiplicar",
-                "Dividir"
-        };
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, operation);
+        OperationAdapter adapter = new OperationAdapter(this.getContext(), operationNames, operationIcons);
         spinner_operations.setAdapter(adapter);
 
         return binding.getRoot();
@@ -77,14 +71,18 @@ public class SecondFragment extends Fragment {
             boolean validacion = validacion();
 
             if (validacion) {
-                calcularOperacion();
+                buscarOperacion();
             }
         });
 
 
     }
 
-    public void calcularOperacion() {
+    /*
+        Método que obtiene la operación indicada por el usuario, ademas
+        de hacer el llamado a la función acorde a la selección
+     */
+    public void buscarOperacion() {
         String selected = spinner_operations.getSelectedItem().toString();
         switch (selected) {
             case "Sumar": {
@@ -109,6 +107,9 @@ public class SecondFragment extends Fragment {
         }
     }
 
+    /*
+        Método que se encarga de estructurar la validacion de los campos rellenados por el usuario
+     */
     public boolean validacion() {
         String c1 = txt_number3.getText().toString();
         String c2 = txt_number4.getText().toString();
@@ -125,21 +126,24 @@ public class SecondFragment extends Fragment {
         return false;
     }
 
+    // Función que evalua si hay valores numericos en los campos rellenados por el cliente
     public boolean validarNumeros(String numero1, String numero2) {
 
         try {
-           int numeroAux1 = Integer.parseInt(numero1);
-           int numeroAux2 = Integer.parseInt(numero2);
+            int numeroAux1 = Integer.parseInt(numero1);
+            int numeroAux2 = Integer.parseInt(numero2);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
+    // Método que imprime un mensaje en la interfaz gráfica del usuario
     public void showMessageEmpty(String message) {
         Toast.makeText(this.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    // Función que realiza la suma de ambos valores numericos ingresados por el usuario
     public String suma() {
         double valor_1 = Integer.parseInt(txt_number3.getText().toString());
         double valor_2 = Integer.parseInt(txt_number4.getText().toString());
@@ -150,6 +154,7 @@ public class SecondFragment extends Fragment {
         return respuesta;
     }
 
+    // Función que realiza la resta de ambos valores numericos ingresados por el usuario
     public String resta() {
         double valor_1 = Integer.parseInt(txt_number3.getText().toString());
         double valor_2 = Integer.parseInt(txt_number4.getText().toString());
@@ -160,6 +165,7 @@ public class SecondFragment extends Fragment {
         return respuesta;
     }
 
+    // Función que realiza la multiplicación de ambos valores numericos ingresados por el usuario
     public String multiplicar() {
         double valor_1 = Integer.parseInt(txt_number3.getText().toString());
         double valor_2 = Integer.parseInt(txt_number4.getText().toString());
@@ -170,6 +176,7 @@ public class SecondFragment extends Fragment {
         return respuesta;
     }
 
+    // Función que realiza la división de ambos valores numericos ingresados por el usuario
     public String dividir() {
         double valor_1 = Integer.parseInt(txt_number3.getText().toString());
         double valor_2 = Integer.parseInt(txt_number4.getText().toString());

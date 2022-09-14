@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.proyectos_2022.appbasicactivity.R;
 
@@ -28,7 +29,7 @@ public class OperationAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return operationNames[i];
     }
 
     @Override
@@ -39,8 +40,12 @@ public class OperationAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        /*view = LayoutInflater.from(context).inflate(R.layout.fragment_second, viewGroup, false);
-        ImageView imageView = view.findViewById(R.id.);*/
+        view = LayoutInflater.from(context).inflate(R.layout.item_spinner, viewGroup, false);
+        ImageView imageView = view.findViewById(R.id.imageIcon);
+        TextView textView = view.findViewById(R.id.textS);
+
+        imageView.setImageResource(operationIcons[i]);
+        textView.setText(operationNames[i]);
 
         return view;
     }
